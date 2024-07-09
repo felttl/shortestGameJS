@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>file reading (local)</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<p>ok</p>
+</body>
+
+<script>
+    function readf(filepath){
+        return fetch(filepath)
+            .then(res => res.text())
+            .then(data => {
+                return data
+            })     
+    }
+    function readableNum(num){
+	const n = `${num}`
+	return n.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    }
+    console.log(readf("./csv.csv"))
+</script>
+</html>
