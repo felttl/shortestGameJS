@@ -3,69 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scrhide</title>
+    <title>wearable game</title>
+	<!-- handmade tools -->
+	 <script src="./scaffolding.echafaudage/main.js"></script>
+	
+	<!-- libs and APIs  -->
 	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- font style 
+	 @see: https://fonts.google.com/selection/embed -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: "Fredoka", sans-serif;
+			font-optical-sizing: auto;
+			font-style: normal;
+			font-variation-settings:
+				"wdth" 100;
+		}
+	</style>
 </head>
 
 
 
 
-<style>
-@media (max-height: 700px){ 
-	.search-wrapper {
-		padding: 0 0 30px;
-	}
-}
-.search-wrapper {
-	padding: 34px 0 38px;
-
-}
-*, ::before, ::after {
-	box-sizing: inherit;
-}
-.outer-wrapper {
-    color: var(--newtab-text-primary-color);
-}
-élément {
-    --newtab-search-icon: url(moz-extension://474b919b-d250-4c66-afd0-0ddca1d19971/favicon.ico);
-}
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Ubuntu", "Helvetica Neue", sans-serif;
-    font-size: 16px;
-}
-/* custom */
-main{
-	width: 90%;
-	position: relative;
-	height: 100%;
-	display: block;
-	background-color: #2a5ea669;
-	margin: auto;
-}
-main *{
-	text-align: center;
-}
-body{
-	background-color: #0000834e;
-}
-body section{
-	background-color: rgba(255, 255, 255, 0.644);
-}
-
-</style>
-<body>
-	<!-- centralizer -->
-	<section class="max-w-md mx-auto bg-white-250 rounded-xl shadow-md overflow-hidden md:max-w-7xl padding-ms p-10">
-		<header class="w-max max-8 ml-auto mr-auto p-8">
-			<h1>interactivité spatiale avec js</h1>
+<body class="bg-sky-300 w-12/12">
+	<main class="max-w-md m-auto opacity-90 overflow-hidden md:max-w-2xl w-11/12">
+		<header class="rounded-b-xl opacity-90 bg-slate-500 p-8 shadow-xl">
+			<h1 class="w-full text-center m-auto text-balance text-2xl">interactivité spatiale avec js</h1>
+			<h2 class="w-full text-center m-auto text-balance text-lg">jeu tout en un</h2>
 		</header>
-		<main>
+		<!-- centralizer -->
+		<section class="bg-white max-w-md bg-white-250 my-20 rounded-xl shadow-md overflow-hidden md:max-w-7xl padding-ms p-10">
+			<h3  class="my-3">game_name</h3>
 			<div id="canvasFlow" class="outline border-4 border-inherit bg-transparent outline-blue-300 rounded">
 				<canvas id="canvas1" class="mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl size-full"></canvas>		
 			</div>
+		</section>		
+		<footer>
+			<h1 class="rounded-t-xl shadow-md"> </h1>
+		</footer>
+	</main>
 
-		</main>
-	</section>
 
 </body>
 <!-- mime warnings -->
@@ -84,100 +64,17 @@ body section{
 	})
 
 
-	function randi(min, max) {
- 		const floatRandom = Math.random()
-		const difference = max - min
-		// random between 0 and the difference
-		const res = Math.round(difference * floatRandom) + min
-		return res
-	}
 
-	class User{
-		#x
-		#y
-		#he=0
-		#ctx
-		#repr
-		constructor(x,y,he,ctx){
-			this.#x = x
-			this.#y = y
-			this.#he = he
-			this.#ctx = ctx
-			this.#repr = {
-				color: "skyblue",
-				x: ()=>this.#x,
-				y: ()=>this.#y,
-				w: 15,
-				h: 10,
-				he: ()=>(this.#he * Math.PI) / 180
-			}
-		}
-	
-		move(canvasW, canvasH){
-			const tmpx = randi(-10,10)
-			const tmpy = randi(-10,10)
-			if(this.#x+tmpx > 0 && this.#x+tmpx < this.#repr.w)
-				this.#x+=tmpx
-			if(this.#y+tmpy > 0 && this.#y+tmpy < this.#repr.h)
-				this.#y+=tmpy
-		}
-
-		render(w,h){
-			this.#clear(w, h)
-			this.#ctx.fillStyle = this.#repr.color
-			this.#ctx.fillRect(
-				this.#repr.x(),
-				this.#repr.y(),
-				this.#repr.w,
-				this.#repr.h
-			)
-  			this.#ctx.rotate(this.#repr.he())
-		}
-		#clear(w,h){
-			this.#ctx.rotate(-this.#repr.he())
-			this.#ctx.clearRect(0,0,w,h)
-		}
-
-	}
-	class Run{
-		#items = []
-		#speed = 500
-		#surface
-		constructor(canvas){
-			this.#surface = canvas
-		}
-		addItem(newItem){
-			this.#items.push(newItem)
-		}
-		addGroupItems(group){
-			this.#items.push(...group)
-		}	
-		renderer(){
-			// private variables not allowed here
-			const localItems=this.#items
-			const localSpeed=this.#speed
-			const localSurface=this.#surface
-			setInterval(function render() {
-				// must implement render on each elems
-				for (let i=0;i<localItems.length;i++){
-					localItems[i].render(localSurface.width,localSurface.height)
-					localItems[i].move(localSurface.clientWidth,localSurface.clientHeight)
-				}
-			}, localSpeed);
-		}
-
-
-	}
 
 	// main prog
 	let me = new User(
 		canvas.clientWidth,
 		canvas.clientHeight,
-		15,9,ctx)
+		15,9,ctx
+	)
 	let gm = new Run(canvas)
 	gm.addItem(me)
 	gm.renderer()
-	
 </script>
 </html> 
 
