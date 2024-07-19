@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Keyboard Events</h1>
+<h2>The code Property</h2>
+
+<p>Press a keyboard key in the input field:</p>
+
+<input type="text" size="40" id="a54c" >
+
+<p>The code property returns the name of the key you pressed:</p>
+
+<p id="demo"></p>
+
+<script>
+//function myFunction(event) {
+//  let key = event.code;
+//  document.getElementById("demo").innerHTML = key;
+//}
+document.getElementById("a54c").addEventListener("keypress", function(e){
+	console.log(e)
+})
+</script>
+
+</body>
+</html>

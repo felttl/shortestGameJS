@@ -1,4 +1,5 @@
 
+// usefull functions
 
 function randi(min, max) {
     const floatRandom = Math.random()
@@ -61,6 +62,49 @@ class User{
         this.#ctx.rotate(-this.#repr.he())
         this.#ctx.clearRect(0,0,w,h)
     }
+
+}
+class Event{
+    #ctx
+    /**
+     * 
+     * @param {*} ctx EXPLICIT !
+     * @see https://www.w3schools.com/jsref/event_onclick.asp
+     */
+    constructor(ctx){
+        const e = [
+            "click",
+            "keypress"
+        ]
+        this.e = e
+        this.#ctx=ctx
+        // add event listener
+        for (let i = 0; i < e.length; i++) {
+            this.#ctx.addEventListener(
+                e[i],
+                function(eg){// eg=event genereated (by sys)
+                    console.log(eg)
+                }
+            )            
+        }
+    }
+
+
+
+}
+class Enemies{
+
+}
+class Weapon{
+
+}
+class Phisics{
+
+}
+/**
+ * superset for algorithm (dijkstra, quicksort, etc...)
+ */
+class S7Algos{
 
 }
 class Run{
