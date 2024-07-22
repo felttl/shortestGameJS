@@ -56,7 +56,7 @@ class User{
             this.#repr.w,
             this.#repr.h
         )
-          this.#ctx.rotate(this.#repr.he())
+        this.#ctx.rotate(this.#repr.he())
     }
     #clear(w,h){
         this.#ctx.rotate(-this.#repr.he())
@@ -64,7 +64,8 @@ class User{
     }
 
 }
-class Event{
+// @BuildMode (en réflexion de la gestion des évènements)
+class EventManager{
     #ctx
     /**
      * 
@@ -87,6 +88,29 @@ class Event{
                 }
             )            
         }
+    }
+    /**
+     * permet d'afficher la liste des évènement des "...EventListener" dans la console
+     * @param {*} event evenement système a ne pas renseigner ! 
+     */
+    getAllEvents(){
+        (
+            function () {
+                console.log(this.type)
+            }
+        )();
+    }
+
+    /**
+     * permet d'ajouter au système la détection les "events" de l'utilisateur 
+     */
+    addUserEventsArrow(){
+        if()
+    }
+
+
+    addMovementDetection(){
+
     }
 
 
@@ -127,6 +151,7 @@ class Run{
             speed: this.#speed,
             surface: this.#surface
         }
+        //@warning setIterval not optimized !!! must be replaced by modern method most usefull in this context !
         setInterval(function render() {
             // must implement render on each elems
             for (let i=0;i<localConst.items.length;i++){
