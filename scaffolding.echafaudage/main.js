@@ -122,14 +122,95 @@ class Enemies{
 class Weapon{
 
 }
-class Phisics{
+class Physics{
 
 }
+
+// outils pour la classe s7algos 
+
+class Graph{
+    add(){
+        // a implémenter
+    }
+    // supprimer un sommet
+    removeVertex(){
+
+    }
+    /**
+     * croise les noeuds des deux graphes et renvoie une liste/graphe
+     * dont les éléments sont en commun (appareissent dans les deux graphes)
+     * @param {*} graph d'entrée
+     */
+    cross(graph){
+        let res = new Graph()
+        for (let i = 0; i < graph.vertecies; i++) {
+            for (let j = 0; j < this.vertecies; j++) {
+                if(this.vertecies[j]==graph.vertecies[i])
+                    res.add(this.vertecies[i])
+            }
+        }
+        return res
+    }
+
+    /**
+     * renvoie si le graphe est vide
+     */
+    get isEmpty(){
+        // a coder
+    }
+
+    // renvoie la liste des sommets du graphe
+    get vertecies(){
+        // a implémenter
+    }
+
+
+}
+
+
 /**
  * superset for algorithm (dijkstra, quicksort, etc...)
  */
 class S7Algos{
-
+    /**
+     * 
+     * 
+     * 
+     * @see https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+     * @param {*} graph 
+     * @param {*} source 
+     */
+    dijkstra(graph, source){
+        let Q = new Graph()
+        let info = []
+        // parcours des vertexes du graphe
+        for (let oneVertex = 0; oneVertex < graph.vertecies; oneVertex++) {
+            info.push(
+                {
+                    dist: 100e100,
+                    prev: undefined
+                }
+            )
+            Q.add(oneVertex)
+        }
+        let u=Q.vertecies[0]
+        while (!Q.isEmpty()){
+            for(let v=0;v<Q.vertecies;v++){
+                if (Q.vertecies[v]<u)
+                    u=Q.vertecies[v]                
+            }
+            Q.removeVertex(u)
+            for (let neighbor = 0; neighbor in u.cross(Q); neighbor++) {
+                const alt = info[neighbor].dist + graph.edges(u, v)
+                if(alt<info[neighbor].dist){
+                    info[neighbor].dist = alt 
+                    info[neighbor].prev = u
+                }
+                
+            }
+        }
+        return info
+    }
 }
 class Run{
     #items = []
