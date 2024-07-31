@@ -9,6 +9,23 @@ function randi(min, max) {
 }
 
 /**
+ * int -> char (with ASCII)
+ */
+function chr(i){
+    return String.fromCharCode(i)
+}
+/**
+ * char -> int (with ASCII)
+ */
+function ord(txt) {
+    let result = 0;
+    for (let i = 0; i < txt.length; i++) {
+        result += txt.charCodeAt(i)
+    }
+    return result
+}
+
+/**
  * create a new user object
  * @param {x} x coordinates hirizontally
  * @param {y} y coordinates vertically
@@ -64,6 +81,19 @@ class User{
     }
 
 }
+
+class Keycap{
+
+    static uniqueId = 0
+
+    #id=0
+
+    constructor(){
+        this.#id=Keycap.uniqueId++
+    }
+
+}
+
 // @BuildMode (en réflexion de la gestion des évènements)
 class EventManager{
     #ctx
@@ -102,7 +132,8 @@ class EventManager{
     }
 
     /**
-     * permet d'ajouter au système la détection les "events" de l'utilisateur 
+     * permet d'ajouter au système la détection les "events" de 
+     * l'utilisateur pour les déplacements (flèche + touche specifiques)
      */
     addUserEventsArrow(){
         if()
@@ -110,6 +141,19 @@ class EventManager{
 
 
     addMovementDetection(){
+
+    }
+
+    /**
+     * allow changin keykaps for command 
+     * (limited to 2 commands in same time for the same event)
+     * echap will abort modification
+     * 
+     * @param {Keycap} newKey key pressed for the new affectation 
+     * (can be a shortcut or more than 1 keycap)
+     * @param {number} keyTargeting they keycap to change (identifier)
+     */
+    swapAffectation(newKey,keyTargeting){
 
     }
 
@@ -128,7 +172,42 @@ class Physics{
 
 // outils pour la classe s7algos 
 
+/**
+ * créer des graphes orientés (il suffit d'ecrire dans les deux
+ * sens pour le rendre non ordienté)
+ */
 class Graph{
+
+    #edges=[]
+    #nodes=[]
+    #vertex=[]
+    #nearbyMatrix=[]
+
+    /**
+     * 
+     * @param {[str]} edges matrice d'adjacence représentant le graph
+     * exemple : 
+     * [
+     *  ["title1", title2, title3, title4],
+     *  [value1, value2, value3, value4],
+     *  [value5, value6, value7, value8],
+     *  [value9, value10, value11, value12]
+     * ]
+     * si c'est un nombre entier il créera une matrice d'adgjacence vide la teille de ce nombre-ci
+     * si c'est un paramètre null ou indéfini ce sera vide
+     */
+    constructor(edges){
+
+        if(edges.length > 0)
+
+        else if(typeof(edges)==="number")
+
+
+        this.#edges=this.#edges
+        
+    }
+
+
     add(){
         // a implémenter
     }
@@ -150,6 +229,13 @@ class Graph{
             }
         }
         return res
+    }
+
+    /**
+     * transforme le graph en matrice
+     */
+    matrixify(){
+
     }
 
     /**
@@ -200,11 +286,12 @@ class S7Algos{
                     u=Q.vertecies[v]                
             }
             Q.removeVertex(u)
-            for (let neighbor = 0; neighbor in u.cross(Q); neighbor++) {
-                const alt = info[neighbor].dist + graph.edges(u, v)
-                if(alt<info[neighbor].dist){
-                    info[neighbor].dist = alt 
-                    info[neighbor].prev = u
+            const group = u.cross(Q)
+            for (let neighbor = 0; neighbor<group.length; neighbor++) {
+                const alt = info[group[neighbor]].dist + graph.edges(u, v)
+                if(alt<info[group[neighbor]].dist){
+                    info[group[neighbor]].dist = alt 
+                    info[group[neighbor]].prev = u
                 }
                 
             }
