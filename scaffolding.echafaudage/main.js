@@ -188,21 +188,25 @@ class Graph{
      * @param {[str]} edges matrice d'adjacence représentant le graph
      * exemple : 
      * [
-     *  ["title1", title2, title3, title4],
-     *  [value1, value2, value3, value4],
-     *  [value5, value6, value7, value8],
-     *  [value9, value10, value11, value12]
+     *  [null, "title2", "title3", "title4"],
+     *  ["titleB", value1, value2, value3, value4],
+     *  ["titleC", value5, value6, value7, value8],
+     *  ["titleD", value9, value10, value11, value12]
      * ]
-     * si c'est un nombre entier il créera une matrice d'adgjacence vide la teille de ce nombre-ci
+     * si c'est un nombre entier il créera une matrice d'adgjacence vide la taille de ce nombre-ci
      * si c'est un paramètre null ou indéfini ce sera vide
      */
     constructor(edges){
 
-        if(edges.length > 0)
-
-        else if(typeof(edges)==="number")
-
-
+        if(edges.length > 0 && edges[0].length === edges.length)
+            this.#nearbyMatrix=edges
+        else if(typeof(edges)==="number"){
+            for (let i = 0; i < edges; i++) {
+                this.#nearbyMatrix.push([])
+                for (let j = 0; j < edges; j++)
+                    this.#nearbyMatrix[i].push(null)
+            }
+        }
         this.#edges=this.#edges
         
     }
@@ -211,9 +215,26 @@ class Graph{
     add(){
         // a implémenter
     }
-    // supprimer un sommet
-    removeVertex(){
-
+    // 
+    /**
+     * supprimer un sommet (graph orienté donc supprime 1 lien)
+     * supprime le lien suivant a->b
+     * @param {*} nameA nom horizontalement
+     * @param {*} nameB nom verticalement
+     */
+    removeVertex(nameA,nameB){
+        let carry = true
+        let i=1,j=1
+        while (carry) {
+            while (carry) {
+                if(nameA === this.#nearbyMatrix[0][i] && nameB === this.#nearbyMatrix[j][0]){
+                    this.#nearbyMatrix[i][j]=0
+                    carry=false    
+                }
+                j++
+            }
+            i++
+        }
     }
     /**
      * croise les noeuds des deux graphes et renvoie une liste/graphe
@@ -231,12 +252,6 @@ class Graph{
         return res
     }
 
-    /**
-     * transforme le graph en matrice
-     */
-    matrixify(){
-
-    }
 
     /**
      * renvoie si le graphe est vide
@@ -250,12 +265,18 @@ class Graph{
         // a implémenter
     }
 
+    // renvoie le nombre de noeuds
+    get nodes(){
+        return this.#nearbyMatrix.length
+    }
+
 
 }
 
 
 /**
- * superset for algorithm (dijkstra, quicksort, etc...)
+ * superset des algorithmes connus (dijkstra, sort, etc...) 
+ * mais qui ne sont pas déja intégré dans les built-in de js
  */
 class S7Algos{
     /**
